@@ -1,8 +1,17 @@
+#coding:utf-8
+
 import os
 
 # for test
 import sys
-sys.path.insert( 0, '..' )
+
+print sys.getdefaultencoding()
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
+print sys.getdefaultencoding()
+
+sys.path.insert(0, '..')
 
 from spider.cnbeta import CnbetaParser
 from spider.cnblog import CnblogParser
@@ -12,25 +21,29 @@ from spider.techweb import TechwebParser
 from spider.tuicool import TuicoolParser
 
 if __name__ == '__main__':
-    types = [ 
-              CnbetaParser,
-              CnblogParser,
-              MiaopaParser,
-              MyBlogParser,
-              TechwebParser,
-              TuicoolParser 
-            ]
+
+    print sys.getdefaultencoding()
+
+
+    types = [
+        CnbetaParser,
+        CnblogParser,
+        MiaopaParser,
+        MyBlogParser,
+        TechwebParser,
+        TuicoolParser
+    ]
     for c in types:
-        print( os.linesep + '************* ' + str( c ) + ' start *************' )
+        print(os.linesep + '************* ' + str(c) + ' start *************')
         try:
             p = c()
             for i in range(1):
                 weibo = p.get_weibo_message()
-                print ( weibo )
-                print( 'has image: ' + str( weibo.has_image ) )
-                print( str( c ) + 'text success!' )
+                print (weibo)
+                print('has image: ' + str(weibo.has_image))
+                print(str(c) + 'text success!')
         except Exception as e:
             print(e)
-            print( str( c ) + ' failure!' )
-        
-        print( '************* ' + str( c ) + ' end *************' + os.linesep )
+            print(str(c) + ' failure!')
+
+        print('************* ' + str(c) + ' end *************' + os.linesep)
